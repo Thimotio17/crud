@@ -1,67 +1,88 @@
-const prompt = require("prompt-sync")
+criarPais();
+listarPaises();
+atualizarPais();
+removerPais();
 
-const paises = []
 
+const prompt = require("prompt-sync")();
 
-const ValidarPais = pais => pais.nome != "" && sigla.length == 2 
+const paises = [];
 
+const lerIndece = () => {
+    const indice = parseInt(prompt("Digite o índice: "));
+    return indice - 1;
+};
+
+const ValidarPais = pais => pais.nome !== "" && pais.sigla.length === 2;
 
 const modelo = () => {
-    const nome = prompt("Digite o nome do país: ")
-    const sigla = prompt ("Digite a sigla do paaís: ").toUpperCase()
+    const nome = prompt("Digite o nome do país: ");
+    const sigla = prompt("Digite a sigla do país: ").toUpperCase();
     
-    if(ValidarPais({nome, sigla})){
-   return{nome, sigla}
+    if (ValidarPais({nome, sigla})) {
+        return {nome, sigla};
     }
 
-    console.log("Dados invalidos!")
-}
-
+    console.log("Dados inválidos!");
+};
 
 const criarPais = () => {
-    const pais = modelo()
+    const pais = modelo();
 
-    if(pais != undefined){
-        pais.push({nome, sigla})
-console.log("Pais criado com sucesso!")
+    if (pais !== undefined) {
+        paises.push(pais);
+        console.log("País criado com sucesso!");
     }
-    
-}
+};
 
-
-const listarPais =  () => {
-    if(pais.length == 0){
-        console.log("Nenhum pais cadastrado!")
-    }else{
-        
-        paises.forEach((pais, indice)=> {
-            console.log(indice + 1, pais)
-
-        })
-    }}
-
-    
+const listarPaises = () => {
+    if (paises.length === 0) {
+        console.log("Nenhum país cadastrado!");
+    } else {
+        paises.forEach((pais, indice) => {
+            console.log(indice + 1, pais);
+        });
+    }
+};
 
 const atualizarPais = () => {
-listarPais()
+    listarPaises();
+    const indice = lerIndece();
 
-
-
-    if (paises.length > 0 ){
-    const indice = prompt("Digite o pais que deseja atualizar: ")
-
-        if(indice >= 0 && indice < paises.length) {
-            const pais = modelo()
-
-            if(pais != undefined) {
-                paises[indice] = pais
-                console.log("Pais atualizado com sucesso!")
-            }
-        } else{
-            console.log("Indece invalido")
+    if (indice >= 0 && indice < paises.length) {
+        const pais = modelo();
+        if (pais !== undefined) {
+            paises[indice] = pais;
+            console.log("País atualizado com sucesso!");
         }
+    } else {
+        console.log("Índice inválido!");
+    }
+};
+
+const removerPais = () => {
+    if (paises.length > 0) {
+        listarPaises();
+        const indice = lerIndece();
+
+        if (indice >= 0 && indice < paises.length) {
+            paises.splice(indice, 1);
+            console.log("País removido com sucesso!");
+        } else {
+            console.log("Índice inválido!");
+        }
+    } else {
+        console.log("Nenhum país cadastrado para remover!");
+    }
+};
+
+
+module.export = {
+
+criarPais,
+listarPaises,
+atualizarPais,
+removerPais,
+
 
 }
-
-
-    }
